@@ -1,4 +1,11 @@
+@extends('layouts.app')
+
+@section('content')
+
+
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <title>View Recipes</title>
@@ -12,17 +19,15 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Origins</th>
-        <th>ingredients</th>
+        <th>Ingredients</th>
         <th>Instructions</th>
       </tr>
     </thead>
     <tbody>
     @foreach ($recipes as $recipes)
       <tr>
-      <td>{{ $recipes->id }}</td>
       <td>{{ $recipes->name }}</td>
       <td>{{ $recipes->origin }}</td>
       <td>{{ $recipes->ingredients }}</td>
@@ -33,4 +38,5 @@
   </table>
 </div>
 </body>
+@endsection
 </html>
