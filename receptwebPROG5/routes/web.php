@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('recipes');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/recipes', [App\Http\Controllers\RecipeController::class, 'recipes'])->name('recipes');
+Route::get('add-recipe-post-form', [PostController::class, 'index']);
+Route::post('store-form', [PostController::class, 'store']);

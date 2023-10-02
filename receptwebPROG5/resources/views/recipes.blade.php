@@ -36,6 +36,9 @@
       @endforeach
     </tbody>
   </table>
+  <td><button onclick="location.href='{{ url('add-recipe-post-form') }}'">
+     Add recipe</button></td>
+
 </div>
 </body>
 @endsection
