@@ -14,12 +14,25 @@
 </head>
 <body>
 <div class="container">
+
   <h2 class="text-center">View Recipes</h2>
+  <form action="/search" method="POST" role="search">
+  <b>Zoek recepten</b>
+    {{ csrf_field() }}
+    <div class="input-group"> 
+        <input type="text" class="form-control" name="q"
+            placeholder="Search recipes"> <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+    </div>
+</form>
            
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Recipe name</th>
         <th>Origins</th>
         <th>Ingredients</th>
         <th>Instructions</th>
@@ -32,12 +45,14 @@
       <td>{{ $recipes->origin }}</td>
       <td>{{ $recipes->ingredients }}</td>
       <td>{{ $recipes->instructions }}</td>
+      <td><a href = 'delete/{{ $recipes->id }}'>Delete</a></td>
       </tr>
       @endforeach
     </tbody>
   </table>
   <td><button onclick="location.href='{{ url('add-recipe-post-form') }}'">
      Add recipe</button></td>
+     
 
 </div>
 </body>
