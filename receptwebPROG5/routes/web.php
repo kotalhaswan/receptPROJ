@@ -23,4 +23,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/recipes', [App\Http\Controllers\RecipeController::class, 'recipes'])->name('recipes');
 Route::get('add-recipe-post-form', [PostController::class, 'index']);
-Route::post('store-form', [PostController::class, 'store']);
+Route::post('store-form', [PostController::class, 'store'])->name('store-form');
