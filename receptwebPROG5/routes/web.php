@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DeleteController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Input;
@@ -22,19 +24,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/recipes', [App\Http\Controllers\RecipeController::class, 'recipes'])->name('recipes');
-Route::get('add-recipe-post-form', [PostController::class, 'index']);
-Route::post('store-form', [PostController::class, 'store'])->name('store-form');
-Route::get('delete-recipe', [DeleteController::class, 'index'])->name('delete');
-Route::get('delete/{id}', [DeleteController::class, 'destroy']);
-
-// Route::any ( '/search', function () {
-//     $q = Input::get ( 'q' );
-//     $recipes = Recipe::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'origin', 'LIKE', '%' . $q . '%' )->get ();
-//     if (count ( $recipes ) > 0)
-//         return view ( 'search-view' )->withDetails ( $recipes )->withQuery ( $q );
-//     else
-//         return view ( 'search-view' )->withMessage ( 'No Details found. Try to search again !' );
-// } );
-// Route::get('delete-recipe', 'App\Http\Controllers\Api\DeleteController@delete');
-// Route::get('delete/{id}','DeleteController@destroy');
+Route::get('/recipes', [App\Http\Controllers\RecipeController::class, 'index'])->name('recipes.index');
+Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+Route::post('/recipes/store', [RecipeController::class, 'store'])->name('recipes.store');
+//Route::get('delete-recipe', [DeleteController::class, 'index'])->name('delete');
+Route::delete('/recipes/{id}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
+//Route::get('/search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');

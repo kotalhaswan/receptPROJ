@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header" style="background: gray; color:#f1f7fa; font-weight:bold;">
                     Create New Recipe
-                    <a href="{{ url('recipes') }}" class="btn btn-success btn-xs py-0 float-end">Back</a>
+                    <a href="{{ route('recipes.index') }}" class="btn btn-success btn-xs py-0 float-end">Back</a>
                 </div>
                 @if(session('message'))
                     <div class="alert alert-{{ session('status') }} alert-dismissible fade show mt-3" role="alert">
@@ -16,8 +16,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                 <div class="card-body">                    
-                    <form class="w-px-500 p-3 p-md-3" action="{{ route('store-form') }}" method="post" enctype="multipart/form-data">
+                 <div class="card-body">
+                    <form class="w-px-500 p-3 p-md-3" action="{{ route('recipes.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <label class="col-sm-3 col-form-label">Name</label>
@@ -30,7 +30,7 @@
                                 @enderror
                             </div>
                         </div>
-                
+
                         <div class="row mb-3">
                             <label class="col-sm-3 col-form-label">Origin</label>
                             <div class="col-sm-9">
