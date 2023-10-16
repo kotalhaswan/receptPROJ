@@ -59,4 +59,31 @@ class RecipeController extends Controller
 
         return redirect()->route('recipes.index');
     }
+
+    public function edit($id)
+    {
+        $recipe = Recipe::find($id);
+        return view('recipes.edit', compact('recipe'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'origin' => 'required',
+            'ingredients' => 'required',
+            'instructions' => 'required',
+        ]);
+
+        $recipe = Recipe::find($id);
+        $recipe->name = $request->input('name');
+        $recipe->origin = $request->input('origin');
+        $recipe->ingredients = $request->input('ingredients');
+        $recipe->instructions = $request->input('instructions');
+        $recipe->update();
+        return redirect()->back()->with([
+            'message' => 'Recipe updated successfully!',
+            'status' => 'success'
+        ]);
+    }
 }

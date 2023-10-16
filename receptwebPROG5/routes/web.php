@@ -27,6 +27,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/recipes', [App\Http\Controllers\RecipeController::class, 'index'])->name('recipes.index');
 Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
 Route::post('/recipes/store', [RecipeController::class, 'store'])->name('recipes.store');
-//Route::get('delete-recipe', [DeleteController::class, 'index'])->name('delete');
+Route::get('/recipes/edit/{id}', [RecipeController::class, 'edit'])->name('recipes.edit');
+Route::put('/recipes/update/{id}', [RecipeController::class, 'update'])->name('recipes.update');
 Route::delete('/recipes/{id}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
-//Route::get('/search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');

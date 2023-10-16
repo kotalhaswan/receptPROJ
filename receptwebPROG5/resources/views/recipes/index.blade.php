@@ -53,7 +53,9 @@
               @method('DELETE')
               <button type="submit">DELETE</button>
           </form>
-      </td>
+          <td>
+              <a href="{{ route('recipes.edit', $recipes->id) }}" class="btn btn-primary btn-sm">Edit</a>
+          </td>
       </tr>
       @endforeach
     </tbody>
