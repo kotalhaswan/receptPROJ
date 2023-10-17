@@ -47,22 +47,27 @@
       <td>{{ $recipes->instructions }}</td>
           <!-- TODO: dit moet een form worden met een method POST/ hidden field _method DELETE method -->
       <td>
-{{--          <a href = '/recipes/delete/{{ $recipes->id }}'>Delete</a>--}}
           <form action="{{ route('recipes.destroy', $recipes->id) }}" method="POST">
               @csrf
               @method('DELETE')
-              <button type="submit">DELETE</button>
+              @if (Auth::check())
+                  <button type="submit">DELETE</button>
+                      @endif
           </form>
-          <td>
-              <a href="{{ route('recipes.edit', $recipes->id) }}" class="btn btn-primary btn-sm">Edit</a>
-          </td>
+          @if (Auth::check())
+              <td>
+                  <a href="{{ route('recipes.edit', $recipes->id) }}" class="btn btn-primary btn-sm">Edit</a>
+              </td>
+                  @endif
       </tr>
       @endforeach
     </tbody>
   </table>
-  <td><button onclick="location.href='{{ route('recipes.create') }}'">
-     Add recipe</button></td>
 
+    @if (Auth::check())
+        <td><button onclick="location.href='{{ route('recipes.create') }}'">
+                Add recipe</button></td>
+    @endif
 
 </div>
 </body>

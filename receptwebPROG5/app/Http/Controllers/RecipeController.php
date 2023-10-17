@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
+
     public function index()
     {
-//        $recipes = DB::select('SELECT * FROM `recipes`');
-
 
         if (request('search')) {
             $recipes = Recipe::where('name', 'like', '%' . request('search') . '%')->get();
@@ -27,7 +27,14 @@ class RecipeController extends Controller
 
     public function create()
     {
-        return view('recipes.create');
+        if (Auth::check()) {
+            return view('recipes.create');
+        } else{
+            $this->middleware('auth');
+            return "You need to be logged in to create a new recipe";
+        }
+
+//        return view('recipes.create');
     }
 
     public function store(Request $request)
