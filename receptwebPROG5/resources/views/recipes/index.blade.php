@@ -47,11 +47,12 @@
       <td>{{ $recipes->instructions }}</td>
           <!-- TODO: dit moet een form worden met een method POST/ hidden field _method DELETE method -->
       <td>
+
           <form action="{{ route('recipes.destroy', $recipes->id) }}" method="POST">
               @csrf
               @method('DELETE')
               @if (Auth::check())
-                  <button type="submit">DELETE</button>
+                  <button type="submit" class="btn btn-primary btn-sm">DELETE</button>
                       @endif
           </form>
           @if (Auth::check())
