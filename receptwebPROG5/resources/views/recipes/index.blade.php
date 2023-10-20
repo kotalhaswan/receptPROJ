@@ -17,11 +17,11 @@
 
   <h2 class="text-center">View Recipes</h2>
   <form action="{{ route('recipes.index') }}" method="GET" role="search">
-  <b>Zoek recepten</b>
+  <b>Search for recipes by name</b>
     {{ csrf_field() }}
     <div class="input-group">
         <input type="text" class="form-control" name="search"
-            placeholder="Search recipes"> <span class="input-group-btn">
+            placeholder="Search..."> <span class="input-group-btn">
             <button type="submit" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span>
             </button>

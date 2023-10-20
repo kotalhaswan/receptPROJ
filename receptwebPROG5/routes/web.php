@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\DeleteController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Input;
 
 /*
@@ -30,3 +29,7 @@ Route::post('/recipes/store', [RecipeController::class, 'store'])->name('recipes
 Route::get('/recipes/edit/{id}', [RecipeController::class, 'edit'])->name('recipes.edit');
 Route::put('/recipes/update/{id}', [RecipeController::class, 'update'])->name('recipes.update');
 Route::delete('/recipes/{id}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
+Route::middleware(['auth'])->group(function () {
+    Route::get('profile',[ProfileController::class,'index'])->name('profile');
+    Route::post('profile/{user}',[ProfileController::class,'update'])->name('profile.update');
+});

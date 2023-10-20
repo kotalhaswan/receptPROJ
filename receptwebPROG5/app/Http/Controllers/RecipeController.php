@@ -75,9 +75,23 @@ class RecipeController extends Controller
         }
     }
 
-    public function destroy($id) {
-        DB::delete('delete from recipes where id = ?',[$id]); // TODO: aanpassen naar eloquent
+    public function destroy(Request $request, $id) {
 
+        $recipe = Recipe::find($id);
+        if ($recipe->users_id === auth()->id()){
+//            DB::delete('delete from recipes where id = ?',[$id]); // TODO: aanpassen naar eloquent
+            $recipe->name = $request->input('name');
+            $recipe->origin = $request->input('origin');
+            $recipe->ingredients = $request->input('ingredients');
+            $recipe->instructions = $request->input('instructions');
+            $recipe->delete();
+        }
+        else{
+            return redirect()->back()->with([
+                'message' => 'You do not own this post',
+                'status' => 'success'
+            ]);
+        }
         return redirect()->back()->with([
             'message' => 'Recipe deleted',
             'status' => 'success'
@@ -86,7 +100,8 @@ class RecipeController extends Controller
 
     public function edit($id)
     {
-        if (Auth::check()) {
+        if (Auth::user()) {
+//            Auth::user()->id();
             $recipe = Recipe::find($id);
             return view('recipes.edit', compact('recipe'));
         } else{
@@ -105,8 +120,8 @@ class RecipeController extends Controller
             'instructions' => 'required',
         ]);
 
-        if (Auth::user()) {
-            $recipe = Recipe::find($id);
+        $recipe = Recipe::find($id);
+        if ($recipe->users_id === auth()->id()) {
             $recipe->name = $request->input('name');
             $recipe->origin = $request->input('origin');
             $recipe->ingredients = $request->input('ingredients');
@@ -115,7 +130,7 @@ class RecipeController extends Controller
         }
         else{
             return redirect()->back()->with([
-                'message' => 'You cant edit someone elses work bruh',
+                'message' => 'You do not own this post',
                 'status' => 'Error',
             ]);
         }

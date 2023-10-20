@@ -20,8 +20,11 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Recipes') }}
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    {{ config('Home', 'Home') }}
+                </a>
+                <a class="navbar-brand" href="{{ url('/recipes') }}">
+                    {{ config('Recipes', 'Recipes') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -60,8 +63,16 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('profile-form').submit();">
+                                        {{ __('Profile') }}
+                                    </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    <form id="profile-form" action="{{ route('profile') }}" method="GET" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
