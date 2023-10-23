@@ -69,6 +69,13 @@
                                         {{ __('Profile') }}
                                     </a>
 
+                                    @if(Auth::user()->is_admin)
+                                    <a class="dropdown-item" href="{{ route('admin') }}">
+                                        {{ __('Admin page') }}
+
+                                    </a>
+                                    @endif
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -21,6 +21,9 @@ class ProfileController extends Controller
             'updated_at' => now()
         ]);
 
-        return $this->success('profile','Profile updated successfully!');
+        return redirect()->back()->with([
+            'message' => 'Profile updated successfully',
+            'status' => 'success'
+        ]);
     }
 }

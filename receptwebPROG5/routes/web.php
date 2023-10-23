@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,7 @@ Route::delete('/recipes/{id}', [RecipeController::class, 'destroy'])->name('reci
 Route::middleware(['auth'])->group(function () {
     Route::get('profile',[ProfileController::class,'index'])->name('profile');
     Route::post('profile/{user}',[ProfileController::class,'update'])->name('profile.update');
+    Route::get('admin',[AdminController::class,'index'])->name('admin');
+
 });
+
