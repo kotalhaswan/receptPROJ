@@ -77,7 +77,7 @@ class RecipeController extends Controller
     public function destroy(Request $request, $id) {
 
         $recipe = Recipe::find($id);
-        if ($recipe->users_id === auth()->id()){
+        if ($recipe->users_id === auth()->id() || Auth::user()->is_admin){
 //            DB::delete('delete from recipes where id = ?',[$id]); // TODO: aanpassen naar eloquent
             $recipe->name = $request->input('name');
             $recipe->origin = $request->input('origin');
@@ -120,7 +120,7 @@ class RecipeController extends Controller
         ]);
 
         $recipe = Recipe::find($id);
-        if ($recipe->users_id === auth()->id()) {
+        if ($recipe->users_id === auth()->id() || Auth::user()->is_admin) {
             $recipe->name = $request->input('name');
             $recipe->origin = $request->input('origin');
             $recipe->ingredients = $request->input('ingredients');

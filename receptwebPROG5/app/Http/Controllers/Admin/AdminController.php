@@ -14,5 +14,13 @@ class AdminController extends Controller
         return view('admin', ['users' => $users]);
     }
 
-
+    public function enable($id){
+        $users = User::find($id);
+        $users->is_enabled = $users->is_enabled === 1 ? 0 : 1;
+        $users->save();
+        return redirect()->back()->with([
+            'message' => 'User updated',
+            'status' => 'success'
+        ]);
+    }
 }

@@ -51,11 +51,11 @@
           <form action="{{ route('recipes.destroy', $recipes->id) }}" method="POST">
               @csrf
               @method('DELETE')
-              @if (Auth::check())
+              @if (Auth::check() && Auth::user()->is_enabled)
                   <button type="submit" class="btn btn-primary btn-sm">DELETE</button>
                       @endif
           </form>
-          @if (Auth::check())
+          @if (Auth::check() && Auth::user()->is_enabled)
               <td>
                   <a href="{{ route('recipes.edit', $recipes->id) }}" class="btn btn-primary btn-sm">Edit</a>
               </td>
@@ -65,7 +65,7 @@
     </tbody>
   </table>
 
-    @if (Auth::check())
+    @if (Auth::check() && Auth::user()->is_enabled)
         <td><button onclick="location.href='{{ route('recipes.create') }}'">
                 Add recipe</button></td>
     @endif

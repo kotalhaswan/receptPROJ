@@ -34,9 +34,24 @@
                 <td>{{ $users->name }}</td>
                 <td>{{ $users->email }}</td>
                 <td>{{ $users->created_at }}</td>
-                <!-- TODO: dit moet een form worden met een method POST/ hidden field _method DELETE method -->
+                @if($users->is_enabled ) <td>Active</td>
+                @else
+                    <td>Not active</td>
+                @endif
+
+                <td><form action="{{ route('enable', $users->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                    @if ($users->is_enabled )
+                        <button type="submit" class="btn btn-primary btn-sm">Disable</button>
+                    @else
+                        <button type="submit" class="btn btn-primary btn-sm">Enable</button>
+                    @endif
+                </form>
+                </td>
                 <td>
             </tr>
+
         @endforeach
         </tbody>
     </table>
