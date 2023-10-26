@@ -16,6 +16,9 @@
 <div class="container">
 
   <h2 class="text-center">View Recipes</h2>
+    @if (Session::has('message'))
+        <div class="alert alert-info">{{ Session::get('message') }}</div>
+    @endif
   <form action="{{ route('recipes.index') }}" method="GET" role="search">
   <b>Search for recipes by name</b>
     {{ csrf_field() }}
@@ -59,7 +62,7 @@
               <td>
                   <a href="{{ route('recipes.edit', $recipes->id) }}" class="btn btn-primary btn-sm">Edit</a>
               </td>
-                  @endif
+          @endif
       </tr>
       @endforeach
     </tbody>

@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('profile/{user}',[ProfileController::class,'update'])->name('profile.update');
     Route::get('admin',[AdminController::class,'index'])->name('admin');
     Route::put('admin/enable/{id}',[AdminController::class,'enable'])->name('enable');
+    Route::put('admin/majorenable',[AdminController::class,'majorenable'])->name('majorenable');
 
 });
 

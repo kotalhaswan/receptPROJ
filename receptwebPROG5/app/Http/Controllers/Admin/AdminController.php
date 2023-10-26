@@ -23,4 +23,15 @@ class AdminController extends Controller
             'status' => 'success'
         ]);
     }
+
+    protected function majorenable(){
+        User::where('is_enabled', 1)
+            ->update(['is_enabled' => 0]);
+
+            return redirect()->back()->with([
+                'message' => 'All users disabled',
+                'status' => 'success'
+            ]);
+
+    }
 }

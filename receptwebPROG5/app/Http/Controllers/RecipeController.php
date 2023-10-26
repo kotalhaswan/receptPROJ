@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -24,22 +25,25 @@ class RecipeController extends Controller
         return view('recipes.index', ['recipes' => $recipes]);
     }
 
-//    public function detail($id)
+//    protected function authenticated()
 //    {
-//        $recipe = Recipe::find($id);
-//        return view('recipes.index', ['recipes' => $recipe]);
+//        $user = User::find(Auth::user()->id);
+//        $user->logincount++;
+//        $user->save();
+//
 //    }
-
     public function create()
     {
+        $user = Auth::user();
+
         if (Auth::check()) {
             return view('recipes.create');
         } else{
-            $this->middleware('auth');
-            return "You need to be logged in to create a new recipe";
+            return redirect()->back()->with([
+                'message' => 'You need to log in atleast 3 times to make a new post.',
+                'status' => 'error'
+            ]);
         }
-
-//        return view('recipes.create');
     }
 
     public function store(Request $request)
@@ -78,7 +82,6 @@ class RecipeController extends Controller
 
         $recipe = Recipe::find($id);
         if ($recipe->users_id === auth()->id() || Auth::user()->is_admin){
-//            DB::delete('delete from recipes where id = ?',[$id]); // TODO: aanpassen naar eloquent
             $recipe->name = $request->input('name');
             $recipe->origin = $request->input('origin');
             $recipe->ingredients = $request->input('ingredients');
@@ -100,12 +103,13 @@ class RecipeController extends Controller
     public function edit($id)
     {
         if (Auth::user()) {
-//            Auth::user()->id();
             $recipe = Recipe::find($id);
             return view('recipes.edit', compact('recipe'));
         } else{
-            $this->middleware('auth');
-            return "Nice try, jackass";
+            return redirect()->back()->with([
+                'message' => 'You do not own this post',
+                'status' => 'error'
+            ]);
         }
 
     }

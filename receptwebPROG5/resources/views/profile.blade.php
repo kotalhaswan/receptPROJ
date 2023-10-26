@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+    <head>
+        <title>Edit user profile</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+    @if (Session::has('message'))
+        <div class="alert alert-info">{{ Session::get('message') }}</div>
+    @endif
     <form
     id="formAccountSettings"
     method="POST"
@@ -29,4 +38,5 @@
         </div>
     </div>
 </form>
+    </body>
 @endsection
