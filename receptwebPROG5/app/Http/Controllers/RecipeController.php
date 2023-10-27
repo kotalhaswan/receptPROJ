@@ -72,9 +72,10 @@ class RecipeController extends Controller
     }
 
     public function destroy(Request $request, $id) {
-
+        $post_check = Auth::user()->id;
+        $posts_checked = Recipe::where('users_id', 'like', '%'. $post_check . '%')->get();
         $recipe = Recipe::find($id);
-        if ($recipe->users_id === auth()->id() || Auth::user()->is_admin){
+        if ($recipe->users_id === auth()->id() && $posts_checked->count()>=3 || Auth::user()->is_admin){
             $recipe->name = $request->input('name');
             $recipe->origin = $request->input('origin');
             $recipe->ingredients = $request->input('ingredients');
@@ -83,7 +84,7 @@ class RecipeController extends Controller
         }
         else{
             return redirect()->back()->with([
-                'message' => 'You do not own this post',
+                'message' => 'You either dont own this post or you havent made 3 recipes yet.',
                 'status' => 'success'
             ]);
         }
@@ -95,13 +96,14 @@ class RecipeController extends Controller
 
     public function edit($id)
     {
-
-        if (Auth::user()) {
+        $post_check = Auth::user()->id;
+        $posts_checked = Recipe::where('users_id', 'like', '%'. $post_check . '%')->get();
+        if (Auth::user()  && $posts_checked->count()>=3) {
             $recipe = Recipe::find($id);
             return view('recipes.edit', compact('recipe'));
         } else{
             return redirect()->back()->with([
-                'message' => 'You do not own this post',
+                'message' => 'You either do not own this post or you havent made 3 recipes yet.',
                 'status' => 'error'
             ]);
         }
