@@ -16,7 +16,8 @@ class RecipeController extends Controller
     {
 
         if (request('search')) {
-            $recipes = Recipe::where('name', 'like', '%' . request('search') . '%')->get();
+            $recipes = Recipe::where('name', 'like', '%' . request('search') . '%')
+                ->orWhere('origin', 'like', '%' . request('search') . '%')->get();
         } else {
             $recipes = Recipe::all();
         }
@@ -24,14 +25,6 @@ class RecipeController extends Controller
 
         return view('recipes.index', ['recipes' => $recipes]);
     }
-
-//    protected function authenticated()
-//    {
-//        $user = User::find(Auth::user()->id);
-//        $user->logincount++;
-//        $user->save();
-//
-//    }
     public function create()
     {
         $user = Auth::user();
@@ -40,7 +33,7 @@ class RecipeController extends Controller
             return view('recipes.create');
         } else{
             return redirect()->back()->with([
-                'message' => 'You need to log in atleast 3 times to make a new post.',
+                'message' => 'You need to log in first.',
                 'status' => 'error'
             ]);
         }
@@ -102,6 +95,7 @@ class RecipeController extends Controller
 
     public function edit($id)
     {
+
         if (Auth::user()) {
             $recipe = Recipe::find($id);
             return view('recipes.edit', compact('recipe'));

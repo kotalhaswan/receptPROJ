@@ -20,7 +20,7 @@
         <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
   <form action="{{ route('recipes.index') }}" method="GET" role="search">
-  <b>Search for recipes by name</b>
+  <b>Search for recipes by name or origin</b>
     {{ csrf_field() }}
     <div class="input-group">
         <input type="text" class="form-control" name="search"
