@@ -98,7 +98,7 @@ class RecipeController extends Controller
     {
         $post_check = Auth::user()->id;
         $posts_checked = Recipe::where('users_id', 'like', '%'. $post_check . '%')->get();
-        if (Auth::user()  && $posts_checked->count()>=3) {
+        if (Auth::user()  && $posts_checked->count()>=3 || Auth::user()->is_admin) {
             $recipe = Recipe::find($id);
             return view('recipes.edit', compact('recipe'));
         } else{
